@@ -4,8 +4,8 @@ const ethers = require('ethers')
 const { BigNumber, utils } = ethers
 
 const provider = new ethers.providers.WebSocketProvider(
-  `wss://sepolia.infura.io/ws/v3/${process.env.INFURA_ID}`,
-  'sepolia',
+  `wss://mainnet.infura.io/ws/v3/${process.env.INFURA_ID}`,
+  'mainnet',
 )
 
 const depositWallet = new ethers.Wallet(
@@ -43,7 +43,7 @@ const main = async () => {
                 from: depositWalletAddress,
                 nonce: await depositWallet.getTransactionCount(),
                 value: currentBalance.sub(maxGasFee),
-                chainId: 11155111, // mainnet: 1
+                chainId: 1, // mainnet: 1
                 gasPrice: gasPrice,
                 gasLimit: gasLimit,
               }
