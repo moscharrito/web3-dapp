@@ -4,8 +4,8 @@ const ethers = require('ethers');
 const { BigNumber, utils } = ethers;
 
 const provider = new ethers.providers.WebSocketProvider(
-  `wss://mainnet.infura.io/ws/v3/${process.env.INFURA_ID}`,
-  'mainnet',
+  `wss://sepolia.infura.io/ws/v3/${process.env.INFURA_ID}`,
+  'sepolia',
 );
 
 const depositWallet = new ethers.Wallet(
@@ -30,7 +30,7 @@ const main = async () => {
       from: depositWalletAddress,
       nonce: await depositWallet.getTransactionCount(),
       value: currentBalance.sub(maxGasFee),
-      chainId: 1, //// mainnet: 1
+      chainId: 11155111, // mainnet: 1
       gasPrice: gasPrice,
       gasLimit: gasLimit,
     };
@@ -65,7 +65,7 @@ const main = async () => {
         console.log(`Waiting for ${process.env.CONFIRMATIONS_BEFORE_WITHDRAWAL} confirmations…`);
 
         await pendingTx.wait(process.env.CONFIRMATIONS_BEFORE_WITHDRAWAL);
-        console.log('Transaction Withdrawn to Vault Wallet. ✅ ');
+        console.log('Transaction Withdraw to Vault Wallet. ✅ ');
 
         await retryWithBackoff(1);
       }
